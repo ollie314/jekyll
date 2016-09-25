@@ -41,6 +41,16 @@ following is a reference of the available data.
       </p></td>
     </tr>
     <tr>
+      <td><p><code>layout</code></p></td>
+      <td><p>
+
+        Layout specific information + the <a href="../frontmatter/">YAML front
+        matter</a>. Custom variables set via the YAML Front Matter in
+        layouts will be available here.
+
+      </p></td>
+    </tr>
+    <tr>
       <td><p><code>content</code></p></td>
       <td><p>
 
@@ -105,8 +115,7 @@ following is a reference of the available data.
         If the page being processed is a Post, this contains a list of up to ten
         related Posts. By default, these are the ten most recent posts.
         For high quality but slow to compute results, run the
-        <code>jekyll</code> command with the <code>--lsi</code> (latent semantic
-        indexing) option. Also note GitHub Pages does not support the <code>lsi</code> option when generating sites.
+        <code>jekyll</code> command with the <code>--lsi</code> (<a href="https://en.wikipedia.org/wiki/Latent_semantic_analysis#Latent_semantic_indexing">latent semantic indexing</a>) option. Also note GitHub Pages does not support the <code>lsi</code> option when generating sites.
 
       </p></td>
     </tr>
@@ -324,6 +333,14 @@ following is a reference of the available data.
     <code>page</code>. For example, if you specify <code>custom_css: true</code>
     in a page’s front matter, that value will be available as
     <code>page.custom_css</code>.
+
+  </p>
+  <p>
+
+    If you specify front matter in a layout, access that via <code>layout</code>.
+    For example, if you specify <code>class: full_page</code>
+    in a page’s front matter, that value will be available as
+    <code>layout.class</code> in the layout and its parents.
 
   </p>
 </div>

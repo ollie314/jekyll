@@ -1,14 +1,14 @@
-require 'helper'
+require "helper"
 
 class TestTheme < JekyllUnitTest
   def setup
-    @theme = Theme.new('test-theme')
+    @theme = Theme.new("test-theme")
     @expected_root = File.expand_path "./fixtures/test-theme", File.dirname(__FILE__)
   end
 
   context "initializing" do
     should "normalize the theme name" do
-      theme = Theme.new(' Test-Theme ')
+      theme = Theme.new(" Test-Theme ")
       assert_equal "test-theme", theme.name
     end
 
@@ -28,21 +28,22 @@ class TestTheme < JekyllUnitTest
 
     should "add itself to sass's load path" do
       @theme.configure_sass
-      assert Sass.load_paths.include?(@theme.sass_path), "Sass load paths should include the theme sass dir"
+      message = "Sass load paths should include the theme sass dir"
+      assert Sass.load_paths.include?(@theme.sass_path), message
     end
   end
 
   context "path generation" do
-    [:layouts, :includes, :sass].each do |folder|
+    [:assets, :_layouts, :_includes, :_sass].each do |folder|
       should "know the #{folder} path" do
-        expected = File.expand_path("_#{folder}", @expected_root)
-        assert_equal expected, @theme.public_send("#{folder}_path")
+        expected = File.expand_path(folder.to_s, @expected_root)
+        assert_equal expected, @theme.public_send("#{folder.to_s.tr("_", "")}_path")
       end
     end
 
     should "generate folder paths" do
       expected = File.expand_path("./_sass", @expected_root)
-      assert_equal expected, @theme.send(:path_for, :sass)
+      assert_equal expected, @theme.send(:path_for, :_sass)
     end
 
     should "not allow paths outside of the theme root" do
@@ -55,7 +56,7 @@ class TestTheme < JekyllUnitTest
 
     should "return the resolved path when a symlink & resolved path exists" do
       expected = File.expand_path("./_layouts", @expected_root)
-      assert_equal expected, @theme.send(:path_for, :symlink)
+      assert_equal expected, @theme.send(:path_for, :_symlink)
     end
   end
 

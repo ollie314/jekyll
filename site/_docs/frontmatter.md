@@ -10,12 +10,12 @@ Jekyll as a special file. The front matter must be the first thing in the file
 and must take the form of valid YAML set between triple-dashed lines. Here is a
 basic example:
 
-{% highlight yaml %}
+```yaml
 ---
 layout: post
 title: Blogging Like a Hacker
 ---
-{% endhighlight %}
+```
 
 Between these triple-dashed lines, you can set predefined variables (see below
 for a reference) or even create custom ones of your own. These variables will
@@ -96,6 +96,54 @@ front matter of a page or post.
         </p>
       </td>
     </tr>
+  </tbody>
+</table>
+</div>
+
+
+## Custom Variables
+
+Any variables in the front matter that are not predefined are mixed into the
+data that is sent to the Liquid templating engine during the conversion. For
+instance, if you set a title, you can use that in your layout to set the page
+title:
+
+```html
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>{% raw %}{{ page.title }}{% endraw %}</title>
+  </head>
+  <body>
+    ...
+```
+
+## Predefined Variables for Posts
+
+These are available out-of-the-box to be used in the front matter for a post.
+
+<div class="mobile-side-scroller">
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <p><code>date</code></p>
+      </td>
+      <td>
+        <p>
+          A date here overrides the date from the name of the post. This can be
+          used to ensure correct sorting of posts. A date is specified in the
+          format <code>YYYY-MM-DD HH:MM:SS +/-TTTT</code>; hours, minutes, seconds, and timezone offset
+          are optional.
+        </p>
+      </td>
+    </tr>
     <tr>
       <td>
         <p style="margin-bottom: 5px;"><code>category</code></p>
@@ -125,54 +173,6 @@ front matter of a page or post.
           Also like categories, tags can be specified as a YAML list or a
           comma-separated string.
 
-        </p>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-## Custom Variables
-
-Any variables in the front matter that are not predefined are mixed into the
-data that is sent to the Liquid templating engine during the conversion. For
-instance, if you set a title, you can use that in your layout to set the page
-title:
-
-{% highlight html %}
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <title>{% raw %}{{ page.title }}{% endraw %}</title>
-  </head>
-  <body>
-    ...
-{% endhighlight %}
-
-## Predefined Variables for Posts
-
-These are available out-of-the-box to be used in the front matter for a post.
-
-<div class="mobile-side-scroller">
-<table>
-  <thead>
-    <tr>
-      <th>Variable</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <p><code>date</code></p>
-      </td>
-      <td>
-        <p>
-          A date here overrides the date from the name of the post. This can be
-          used to ensure correct sorting of posts. A date is specified in the
-          format <code>YYYY-MM-DD HH:MM:SS +/-TTTT</code>; hours, minutes, seconds, and timezone offset
-          are optional.
         </p>
       </td>
     </tr>

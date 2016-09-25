@@ -284,6 +284,18 @@ class="flag">flags</code> (specified on the command-line) that control them.
         <p><code class="flag">-I, --incremental</code></p>
       </td>
     </tr>
+    <tr class="setting">
+      <td>
+        <p class="name"><strong>Liquid profiler</strong></p>
+        <p class="description">
+            Generate a Liquid rendering profile to help you identify performance bottlenecks.
+        </p>
+      </td>
+      <td class="align-center">
+        <p><code class="option">profile: BOOL</code></p>
+        <p><code class="flag">--profile</code></p>
+      </td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -383,23 +395,24 @@ before your site is served.
   </p>
 </div>
 
-## Custom WEBRick Headers
+## Custom WEBrick Headers
 
 You can provide custom headers for your site by adding them to `_config.yml`
 
-{% highlight yaml %}
+```yaml
 # File: _config.yml
 webrick:
   headers:
     My-Header: My-Value
     My-Other-Header: My-Other-Value
-{% endhighlight %}
+```
 
 ### Defaults
 
-We only provide one default and that's a Content-Type header that disables
-caching in development so that you don't have to fight with Chrome's aggressive
-caching when you are in development mode.
+We provide by default `Content-Type` and `Cache-Control` response headers: one
+dynamic in order to specify the nature of the data being served, the other
+static in order to disable caching so that you don't have to fight with Chrome's
+aggressive caching when you are in development mode.
 
 ## Specifying a Jekyll environment at build time
 
@@ -407,19 +420,19 @@ In the build (or serve) arguments, you can specify a Jekyll environment and valu
 
 For example, suppose you set this conditional statement in your code:
 
-{% highlight liquid %}
+```liquid
 {% raw %}
 {% if jekyll.environment == "production" %}
    {% include disqus.html %}
 {% endif %}
 {% endraw %}
-{% endhighlight %}
+```
 
 When you build your Jekyll site, the content inside the `if` statement won't be run unless you also specify a `production` environment in the build command, like this:
 
-{% highlight sh %}
+```sh
 JEKYLL_ENV=production jekyll build
-{% endhighlight %}
+```
 
 Specifying an environment value allows you to make certain content available only within specific environments.
 
@@ -435,20 +448,20 @@ Using [YAML Front Matter](../frontmatter/) is one way that you can specify confi
 
 Often times, you will find that you are repeating a lot of configuration options. Setting the same layout in each file, adding the same category - or categories - to a post, etc. You can even add custom variables like author names, which might be the same for the majority of posts on your blog.
 
-Instead of repeating this configuration each time you create a new post or page, Jekyll provides a way to set these defaults in the site configuration. To do this, you can specify  site-wide defaults using the `defaults` key in the `_config.yml` file in your project's root directory.
+Instead of repeating this configuration each time you create a new post or page, Jekyll provides a way to set these defaults in the site configuration. To do this, you can specify site-wide defaults using the `defaults` key in the `_config.yml` file in your project's root directory.
 
 The `defaults` key holds an array of scope/values pairs that define what defaults should be set for a particular file path, and optionally, a file type in that path.
 
 Let's say that you want to add a default layout to all pages and posts in your site. You would add this to your `_config.yml` file:
 
-{% highlight yaml %}
+```yaml
 defaults:
   -
     scope:
       path: "" # an empty string here means all files in the project
     values:
       layout: "default"
-{% endhighlight %}
+```
 
 <div class="note info">
   <h5>Please stop and rerun `jekyll serve` command.</h5>
@@ -462,9 +475,9 @@ defaults:
   </p>
 </div>
 
-Here, we are scoping the `values` to any file that exists in the scopes path. Since the path is set as an empty string, it will apply to **all files** in your project. You probably don't want to set a layout on every file in your project - like css files, for example - so you can also specify a `type` value under the `scope` key.
+Here, we are scoping the `values` to any file that exists in the path `scope`. Since the path is set as an empty string, it will apply to **all files** in your project. You probably don't want to set a layout on every file in your project - like css files, for example - so you can also specify a `type` value under the `scope` key.
 
-{% highlight yaml %}
+```yaml
 defaults:
   -
     scope:
@@ -472,14 +485,14 @@ defaults:
       type: "posts" # previously `post` in Jekyll 2.2.
     values:
       layout: "default"
-{% endhighlight %}
+```
 
 Now, this will only set the layout for files where the type is `posts`.
 The different types that are available to you are `pages`, `posts`, `drafts` or any collection in your site. While `type` is optional, you must specify a value for `path` when creating a `scope/values` pair.
 
 As mentioned earlier, you can set multiple scope/values pairs for `defaults`.
 
-{% highlight yaml %}
+```yaml
 defaults:
   -
     scope:
@@ -494,11 +507,11 @@ defaults:
     values:
       layout: "project" # overrides previous default layout
       author: "Mr. Hyde"
-{% endhighlight %}
+```
 
-With these defaults, all posts would use the `my-site` layout. Any html files that exist in the `projects/` folder will use the `project` layout, if it exists. Those files will also have the `page.author` [liquid variable](../variables/) set to `Mr. Hyde` as well as have the category for the page set to `project`.
+With these defaults, all posts would use the `my-site` layout. Any html files that exist in the `projects/` folder will use the `project` layout, if it exists. Those files will also have the `page.author` [liquid variable](../variables/) set to `Mr. Hyde`.
 
-{% highlight yaml %}
+```yaml
 collections:
   - my_collection:
       output: true
@@ -510,7 +523,7 @@ defaults:
       type: "my_collection" # a collection in your site, in plural form
     values:
       layout: "default"
-{% endhighlight %}
+```
 
 In this example, the `layout` is set to `default` inside the
 [collection](../collections/) with the name `my_collection`.
@@ -523,7 +536,7 @@ You can see that in the second to last example above. First, we set the default 
 
 Finally, if you set defaults in the site configuration by adding a `defaults` section to your `_config.yml` file, you can override those settings in a post or page file. All you need to do is specify the settings in the post or page front matter. For example:
 
-{% highlight yaml %}
+```yaml
 # In _config.yml
 ...
 defaults:
@@ -536,16 +549,16 @@ defaults:
       author: "Mr. Hyde"
       category: "project"
 ...
-{% endhighlight %}
+```
 
-{% highlight yaml %}
+```yaml
 # In projects/foo_project.md
 ---
 author: "John Smith"
 layout: "foobar"
 ---
 The post text goes here...
-{% endhighlight %}
+```
 
 The `projects/foo_project.md` would have the `layout` set to `foobar` instead
 of `project` and the `author` set to `John Smith` instead of `Mr. Hyde` when
@@ -566,20 +579,22 @@ file or on the command-line.
   </p>
 </div>
 
-{% highlight yaml %}
+```yaml
 # Where things are
 source:       .
 destination:  ./_site
-plugins_dir:  ./_plugins
-layouts_dir:  ./_layouts
-data_dir:     ./_data
-includes_dir: ./_includes
-collections:  null
+plugins_dir:  _plugins
+layouts_dir:  _layouts
+data_dir:     _data
+includes_dir: _includes
+collections:
+  posts:
+    output:   true
 
 # Handling Reading
 safe:         false
 include:      [".htaccess"]
-exclude:      []
+exclude:      ["vendor"]
 keep_files:   [".git", ".svn"]
 encoding:     "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
@@ -606,6 +621,7 @@ detach:  false
 port:    4000
 host:    127.0.0.1
 baseurl: "" # does not include hostname
+show_dir_listing: false
 
 # Outputting
 permalink:     date
@@ -613,7 +629,11 @@ paginate_path: /page:num
 timezone:      null
 
 quiet:    false
+verbose:  false
 defaults: []
+
+liquid:
+  error_mode: warn
 
 # Markdown Processors
 rdiscount:
@@ -628,16 +648,19 @@ kramdown:
   entity_output:  as_char
   toc_levels:     1..6
   smart_quotes:   lsquo,rsquo,ldquo,rdquo
-  enable_coderay: false
+  input:          GFM
+  hard_wrap:      false
+  footnote_nr:    1
+```
 
-  coderay:
-    coderay_wrap:              div
-    coderay_line_numbers:      inline
-    coderay_line_number_start: 1
-    coderay_tab_width:         4
-    coderay_bold_every:        10
-    coderay_css:               style
-{% endhighlight %}
+## Liquid Options
+
+Liquid's response to errors can be configured by setting `error_mode`. The
+options are
+
+- `lax` --- Ignore all errors.
+- `warn` --- Output a warning on the console for each error.
+- `strict` --- Output an error message and stop the build.
 
 ## Markdown Options
 
@@ -688,21 +711,11 @@ extensions are:
 
 [redcarpet_extensions]: https://github.com/vmg/redcarpet/blob/v3.2.2/README.markdown#and-its-like-really-simple-to-use
 
-### Kramdown
-
-In addition to the defaults mentioned above, you can also turn on recognition
-of GitHub Flavored Markdown by passing an `input` option with a value of "GFM".
-
-For example, in your `_config.yml`:
-
-    kramdown:
-      input: GFM
-
 ### Custom Markdown Processors
 
 If you're interested in creating a custom markdown processor, you're in luck! Create a new class in the `Jekyll::Converters::Markdown` namespace:
 
-{% highlight ruby %}
+```ruby
 class Jekyll::Converters::Markdown::MyCustomProcessor
   def initialize(config)
     require 'funky_markdown'
@@ -717,14 +730,14 @@ class Jekyll::Converters::Markdown::MyCustomProcessor
     ::FunkyMarkdown.new(content).convert
   end
 end
-{% endhighlight %}
+```
 
 Once you've created your class and have it properly set up either as a plugin
 in the `_plugins` folder or as a gem, specify it in your `_config.yml`:
 
-{% highlight yaml %}
+```yaml
 markdown: MyCustomProcessor
-{% endhighlight %}
+```
 
 ## Incremental Regeneration
 <div class="note warning">

@@ -2,94 +2,13 @@
 AllCops:
   TargetRubyVersion: 2.0
   Include:
-  - lib/**/*.rb
+    - lib/**/*.rb
   Exclude:
-  - lib/jekyll/collection.rb
-  - lib/jekyll/command.rb
-  - lib/jekyll/configuration.rb
-  - lib/jekyll/converter.rb
-  - lib/jekyll/converters/identity.rb
-  - lib/jekyll/converters/markdown
-  - lib/jekyll/converters/markdown/kramdown_parser.rb
-  - lib/jekyll/converters/markdown/rdiscount_parser.rb
-  - lib/jekyll/converters/markdown/redcarpet_parser.rb
-  - lib/jekyll/converters/markdown.rb
-  - lib/jekyll/converters/smartypants.rb
-  - lib/jekyll/convertible.rb
-  - lib/jekyll/deprecator.rb
-  - lib/jekyll/document.rb
-  - lib/jekyll/drops/collection_drop.rb
-  - lib/jekyll/drops/document_drop.rb
-  - lib/jekyll/drops/drop.rb
-  - lib/jekyll/drops/jekyll_drop.rb
-  - lib/jekyll/drops/site_drop.rb
-  - lib/jekyll/drops/unified_payload_drop.rb
-  - lib/jekyll/drops/url_drop.rb
-  - lib/jekyll/entry_filter.rb
-  - lib/jekyll/errors.rb
-  - lib/jekyll/excerpt.rb
-  - lib/jekyll/external.rb
-  - lib/jekyll/filters.rb
-  - lib/jekyll/frontmatter_defaults.rb
-  - lib/jekyll/generator.rb
-  - lib/jekyll/hooks.rb
-  - lib/jekyll/layout.rb
-  - lib/jekyll/liquid_extensions.rb
-  - lib/jekyll/liquid_renderer/file.rb
-  - lib/jekyll/liquid_renderer/table.rb
-  - lib/jekyll/liquid_renderer.rb
-  - lib/jekyll/log_adapter.rb
-  - lib/jekyll/page.rb
-  - lib/jekyll/plugin.rb
-  - lib/jekyll/plugin_manager.rb
-  - lib/jekyll/publisher.rb
-  - lib/jekyll/reader.rb
-  - lib/jekyll/readers/collection_reader.rb
-  - lib/jekyll/readers/data_reader.rb
-  - lib/jekyll/readers/layout_reader.rb
-  - lib/jekyll/readers/page_reader.rb
-  - lib/jekyll/readers/post_reader.rb
-  - lib/jekyll/readers/static_file_reader.rb
-  - lib/jekyll/regenerator.rb
-  - lib/jekyll/related_posts.rb
-  - lib/jekyll/renderer.rb
-  - lib/jekyll/site.rb
-  - lib/jekyll/static_file.rb
-  - lib/jekyll/stevenson.rb
-  - lib/jekyll/tags/highlight.rb
-  - lib/jekyll/tags/include.rb
-  - lib/jekyll/tags/link.rb
-  - lib/jekyll/tags/post_url.rb
-  - lib/jekyll/theme.rb
-  - lib/jekyll/url.rb
-  - lib/jekyll/utils/ansi.rb
-  - lib/jekyll/utils/platforms.rb
-  - lib/jekyll/utils.rb
-  - lib/jekyll/version.rb
-  - lib/jekyll.rb
-  - features/step_definitions.rb
-  - features/support/formatter.rb
-  - features/support/helpers.rb
-  - test/test_configuration.rb
-  - test/test_document.rb
-  - test/test_entry_filter.rb
-  - test/test_filters.rb
-  - test/test_kramdown.rb
-  - test/test_liquid_renderer.rb
-  - test/test_page.rb
-  - test/test_regenerator.rb
-  - test/test_related_posts.rb
-  - test/test_sass.rb
-  - test/test_site.rb
-  - test/test_static_file.rb
-  - test/test_tags.rb
-  - test/test_theme.rb
-  - test/test_url.rb
-  - test/test_utils.rb
-  - bin/**/*
-  - benchmark/**/*
-  - script/**/*
-  - vendor/**/*
+    - lib/jekyll/renderer.rb
+    - bin/**/*
+    - benchmark/**/*
+    - script/**/*
+    - vendor/**/*
 Lint/EndAlignment:
   Severity: error
 Lint/UnreachableCode:
@@ -97,21 +16,22 @@ Lint/UnreachableCode:
 Lint/UselessAccessModifier:
   Enabled: false
 Metrics/AbcSize:
-  Max: 20
+  Max: 21
 Metrics/ClassLength:
-  Max: 240
   Exclude:
-  - !ruby/regexp /features\/.*.rb$/
+    - !ruby/regexp /features\/.*.rb$/
+    - !ruby/regexp /test\/.*.rb$/
+  Max: 300
 Metrics/CyclomaticComplexity:
-  Max: 8
+  Max: 9
 Metrics/LineLength:
+  Exclude:
+    - !ruby/regexp /features\/.*.rb/
   Max: 90
   Severity: warning
-  Exclude:
-  - !ruby/regexp /features\/.*.rb/
 Metrics/MethodLength:
-  Max: 20
   CountComments: false
+  Max: 20
   Severity: error
 Metrics/ModuleLength:
   Max: 240
@@ -126,8 +46,8 @@ Style/AlignArray:
 Style/AlignHash:
   EnforcedHashRocketStyle: table
 Style/AlignParameters:
-  EnforcedStyle: with_fixed_indentation
   Enabled: false
+  EnforcedStyle: with_fixed_indentation
 Style/AndOr:
   Severity: error
 Style/Attr:
@@ -139,7 +59,7 @@ Style/ClassAndModuleChildren:
 Style/Documentation:
   Enabled: false
   Exclude:
-  - !ruby/regexp /features\/.*.rb$/
+    - !ruby/regexp /features\/.*.rb$/
 Style/DoubleNegation:
   Enabled: false
 Style/EmptyLinesAroundAccessModifier:
@@ -187,7 +107,7 @@ Style/RedundantReturn:
 Style/RedundantSelf:
   Enabled: false
 Style/RegexpLiteral:
-  EnforcedStyle: slashes
+  EnforcedStyle: percent_r
 Style/RescueModifier:
   Enabled: false
 Style/SignalException:
